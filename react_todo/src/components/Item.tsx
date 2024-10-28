@@ -9,12 +9,18 @@ function Item({todo ,setTodos}:Props) {
     const handeleComplited = (checked:boolean) =>{
         setTodos(todos => {
             const copy = [...todos]
-            console.log(copy)
             const td = copy.find(curr => curr.id === todo.id)
             td!.complited = checked
             return copy
         })
     };
+    const deleteItem = (id:string) =>{
+        setTodos(todos => {
+            const copy = [...todos]
+            const tds:Todo[]|undefined = copy.filter(curr => curr.id != id)
+            return tds
+        })
+    }
   return (
     <div className='item'>
         <input type="checkbox" 
@@ -23,7 +29,7 @@ function Item({todo ,setTodos}:Props) {
         />
         <p>{todo.title}</p>
         <p>{todo.create_at.toLocaleString()}</p>
-        <button>delete</button>
+        <button onClick={e => deleteItem(todo.id)}>delete</button>
     </div>
   )
 }
